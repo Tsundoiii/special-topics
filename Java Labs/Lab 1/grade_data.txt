@@ -1,0 +1,16 @@
+15
+James	90 75 81 83 82
+Jacob 	85 83 77 91 76
+Matthew 80 90 95 93 99
+Timothy	78 81 11 90 73
+Levi	92 83 30 69 87
+Nathan	23 45 96 71 59
+Paul	60 85 68 58 67
+Rachel 	77 90 52 74 83
+Samson	93 94 89 77 97
+Isaac	79 85 28 93 82
+Moses	85 72 95 75 63
+Zacheus	95 99 86 85 92
+Peter	60 40 50 55 65
+Mary	92 84 88 90 96
+Ezra	81 80 83 79 92

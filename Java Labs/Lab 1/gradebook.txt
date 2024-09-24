@@ -1,0 +1,17 @@
+Student	Test1	Test2	Test3	Test4	Test5	Average	Grade
+James	90	75	81	83	82	82.2	B
+Jacob	85	83	77	91	76	82.4	B
+Matthew	80	90	95	93	99	91.4	A
+Timothy	78	81	11	90	73	66.6	D
+Levi	92	83	30	69	87	72.2	C
+Nathan	23	45	96	71	59	58.8	F
+Paul	60	85	68	58	67	67.6	D
+Rachel	77	90	52	74	83	75.2	C
+Samson	93	94	89	77	97	90.0	A
+Isaac	79	85	28	93	82	73.4	C
+Moses	85	72	95	75	63	78.0	C
+Zacheus	95	99	86	85	92	91.4	A
+Peter	60	40	50	55	65	54.0	F
+Mary	92	84	88	90	96	90.0	A
+Ezra	81	80	83	79	92	83.0	B
+Class Average = 77.08
