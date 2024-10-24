@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gavinchen.cheeseburgermenu.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHEESEBURGER MENU" textAlignment="CENTER" wrappingWidth="556.783203125">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <TextField fx:id="patties" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="80.0" text="1">
+               <VBox.margin>
+                  <Insets left="145.0" />
+               </VBox.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="# of patties" textAlignment="CENTER" wrappingWidth="366.017578125" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(1st free, $2 each after that)" textAlignment="CENTER" wrappingWidth="366.44140625" />
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type of patty:">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Text>
+            <RadioButton fx:id="beef" mnemonicParsing="false" selected="true" text="Beef">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="vegan" mnemonicParsing="false" text="Vegan (add $1)">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </RadioButton>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toppings: (3 free, $.50 each after that)" />
+            <CheckBox fx:id="tomato" mnemonicParsing="false" text="Tomato" />
+            <CheckBox fx:id="lettuce" mnemonicParsing="false" text="Lettuce" />
+            <CheckBox fx:id="onion" mnemonicParsing="false" text="Onion" />
+            <CheckBox fx:id="mayo" mnemonicParsing="false" text="Mayo" />
+            <CheckBox fx:id="mustard" mnemonicParsing="false" text="Mustard" />
+         </children>
+      </VBox>
+      <Text fx:id="total" strokeType="OUTSIDE" strokeWidth="0.0" text="Total: $5.00 " textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button fx:id="getTotal" mnemonicParsing="false" onAction="#calculateTotal" text="Get Total" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+   </children>
+</GridPane>
