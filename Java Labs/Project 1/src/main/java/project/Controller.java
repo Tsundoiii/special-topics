@@ -6,7 +6,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -24,7 +27,7 @@ public class Controller {
     private CheckBox rearCamera;
     @FXML
     private TextField salesTax;
-    private final TextField[] financingInformation = {basePrice, downPayment, salesTax};
+    private final TextField[] financingInformation = { basePrice, downPayment, salesTax };
     @FXML
     private RadioButton sixtyMonths;
     @FXML
@@ -35,14 +38,14 @@ public class Controller {
     private Text totalLoanAmount;
     @FXML
     private Text totalPayment;
-    private final Text[] paymentInformation = {totalLoanAmount, monthlyPayment, totalPayment};
+    private final Text[] paymentInformation = { totalLoanAmount, monthlyPayment, totalPayment };
     @FXML
     private CheckBox touchScreen;
     private final Stream<CheckBox> extraOptions = Stream.of(sunRoof, touchScreen, rearCamera);
     private final Supplier<Stream<CheckBox>> extraOptionsSupplier = () -> Stream.of(sunRoof, touchScreen, rearCamera);
     @FXML
     private RadioButton twentyFourMonths;
-    private final RadioButton[] loanTerm = {twentyFourMonths, thirtySixMonths, fortyEightMonths, sixtyMonths};
+    private final RadioButton[] loanTerm = { twentyFourMonths, thirtySixMonths, fortyEightMonths, sixtyMonths };
 
     public void initialize() {
         interestRates.put(24, 0.07);
@@ -62,7 +65,13 @@ public class Controller {
         double monthlyInterest = annualInterestRate / 12;
         double monthScale = Math.pow(1 + monthlyInterest, months);
 
-        return totalLoan(Double.parseDouble(basePrice.getText()), extraOptionsSupplier.get().mapToDouble(option -> Double.parseDouble(option.getText().substring(option.getText().indexOf("$") + 1))).sum(), Double.parseDouble(downPayment.getText()), Double.parseDouble(salesTax.getText()) / 10) * monthlyInterest * monthScale / (monthScale - 1);
+        return totalLoan(Double.parseDouble(basePrice.getText()),
+                extraOptionsSupplier.get().filter(option -> option.isSelected())
+                        .mapToDouble(option -> Double
+                                .parseDouble(option.getText().substring(option.getText().indexOf("$") + 1)))
+                        .sum(),
+                Double.parseDouble(downPayment.getText()), Double.parseDouble(salesTax.getText()) / 100)
+                * (monthlyInterest * monthScale / (monthScale - 1));
     }
 
     private int loanTerm() {
@@ -94,31 +103,42 @@ public class Controller {
     }
 
     private String priceFormat(double price) {
-        return String.format(".2f", price);
+        return String.format("%.2f", price);
     }
 
     @FXML
     private void calculate() {
-        totalLoanAmount.setText(String.format(Double.toString(totalLoan(Double.parseDouble(basePrice.getText()), extraOptionsSupplier.get().mapToDouble(option -> Double.parseDouble(option.getText().substring(option.getText().indexOf("$") + 1))).sum(), Double.parseDouble(downPayment.getText()), Double.parseDouble(salesTax.getText()) / 10)), "%.2f"));
-        monthlyPayment.setText(String.format(Double.toString(monthlyPayment(annualInterestRate(), loanTerm())), "%.2f"));
-        totalPayment.setText(String.format(Double.toString(totalPayment()), "%.2f"));
+        totalLoanAmount.setText(priceFormat(totalLoan(Double.parseDouble(basePrice.getText()),
+                extraOptionsSupplier.get().filter(option -> option.isSelected())
+                        .mapToDouble(option -> Double
+                                .parseDouble(option.getText().substring(option.getText().indexOf("$") + 1)))
+                        .sum(),
+                Double.parseDouble(downPayment.getText()), Double.parseDouble(salesTax.getText()) / 100)));
+
+        monthlyPayment
+                .setText(String.format("%.2f", monthlyPayment(annualInterestRate(), loanTerm())));
+
+        totalPayment.setText(String.format("%.2f", totalPayment()));
     }
 
     @FXML
     private void reset() {
-        for (Text amount : paymentInformation) {
-            amount.setText("0.0");
-        }
+        totalLoanAmount.setText("0.0");
+        monthlyPayment.setText("0.0");
+        totalPayment.setText("0.0");
 
-        for (TextField field : financingInformation) {
-            field.clear();
-        }
+        basePrice.setText("0.0");
+        downPayment.setText("0.0");
+        salesTax.setText("7.0");
 
-        for (RadioButton term : loanTerm) {
-            term.setSelected(false);
-        }
+        twentyFourMonths.setSelected(true);
+        thirtySixMonths.setSelected(false);
+        fortyEightMonths.setSelected(false);
+        sixtyMonths.setSelected(false);
 
-        extraOptions.forEach(option -> option.setSelected(false));
+        sunRoof.setSelected(false);
+        touchScreen.setSelected(false);
+        rearCamera.setSelected(true);
     }
 
 }
