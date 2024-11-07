@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Name:
- * Username:
+ * Name: Gavin Chen
+ * Username: gavinchen
  */
 public class App extends Application {
 
