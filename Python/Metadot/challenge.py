@@ -1,9 +1,7 @@
-from abc import ABC, abstractmethod
+import pygame
 
 
-class Challenge(ABC):
-    name: str
-
-    @abstractmethod
-    def solved(self):
-        pass
+class Challenge:
+    def solved(self, color: pygame.Color, solve):
+        self.color = color
+        self.solve = solve
