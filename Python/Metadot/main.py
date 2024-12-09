@@ -1,8 +1,6 @@
 from typing import Dict, List
 import pygame
 import json
-from datetime import datetime
-from time import sleep
 from sys import argv
 
 from challenge import Challenge
