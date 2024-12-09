@@ -5,12 +5,14 @@ from sys import argv
 
 from challenge import Challenge
 
+
 WIDTH = 600
 HEIGHT = 300
 
 
 def main_screen(surface: pygame.Surface, challenges: List):
     surface.fill(pygame.Color("gray16"))
+
     for challenge in challenges:
         challenge.draw_challenge(surface, True)
 
@@ -105,7 +107,8 @@ def main():
     pygame.display.set_caption("Metadot")
     surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 
-    blue = Challenge("blue", (0.25, 0.25), lambda: False)
+    blue_solved = False
+    blue = Challenge("blue", (0.25, 0.25), lambda: blue_solved)
     yellow = Challenge(
         "yellow",
         (0.75, 0.25),
