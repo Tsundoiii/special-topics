@@ -1,0 +1,3 @@
+Learning the command line can bring great benefits...
+
+(If you are running this in IDLE, you will need to customize how you run the script by going to Run > Run...Customized)

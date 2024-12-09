@@ -1,1 +1,6 @@
-{"blue": false, "yellow": false}
+{
+    "blue": false,
+    "yellow": false,
+    "green": false,
+    "red": false
+}
