@@ -23,8 +23,8 @@ def draw_blue(surface: pygame.Surface, challenge: Challenge):
     font = pygame.freetype.SysFont("Arial", 30)
     font.render_to(
         surface,
-        (surface.get_width() / 2.4, surface.get_height() / 6),
-        "main.py",
+        (surface.get_width() / 3, surface.get_height() / 6),
+        "main.py, line 110",
         pygame.Color("blue"),
     )
 
