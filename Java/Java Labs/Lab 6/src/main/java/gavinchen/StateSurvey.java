@@ -1,9 +1,6 @@
 package gavinchen;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class StateSurvey {
@@ -31,7 +28,7 @@ public class StateSurvey {
         String input = scanner.next();
 
         if (input.equals("quit")) {
-            throw new CancelledSurveyException("Your survey was cancelled.");
+            throw new CancelledSurveyException();
         }
         
         return input;
@@ -47,15 +44,15 @@ public class StateSurvey {
             age = Integer.parseInt(input);
 
             if (age < 0) {
-                System.out.println("You've entered an invalid age.");
-                return getAge();
+                throw new IllegalArgumentException();
             }
 
             if (age <= 18) {
                 throw new CancelledSurveyException("You are too young to complete the survey.");
             }
-        } catch (NumberFormatException nfe) {
-            throw new CancelledSurveyException("You've entered an invalid age.");
+        } catch (IllegalArgumentException iae) {
+            System.out.println("You've entered an invalid age.");
+            return getAge();
         }
 
         return age;
@@ -63,17 +60,20 @@ public class StateSurvey {
 
     private static String[][] readStateFile() {
         Scanner reader = null;
-        String[][] states = new String[2][50];
+        String[][] states = new String[50][2];
 
         try (FileInputStream file = new FileInputStream("states.bin")) {
-            while (file.)
+            DataInputStream inputStream = new DataInputStream(file);
+
+            for (int i  = 0; inputStream.available() > 0; i++) {
+                String abbreviation = inputStream.readUTF();
+                String state = inputStream.readUTF();
+
+                states[i][0] = abbreviation;
+                states[i][1] = state;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-
-        for (int i = 0; i < 50; i++) {
-            states[i][0] = reader.next();
-            states[i][1] = reader.next();
         }
 
         return states;
