@@ -1,10 +1,29 @@
 package lab;
 
 /**
- * Name: 
- * Username: 
+ * Name:
+ * Username:
  */
 
-public class Book {
+public record Book(String title, double price) {
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
