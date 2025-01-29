@@ -50,8 +50,11 @@ public class Controller {
 
             try (FileInputStream fileInputStream = new FileInputStream(booksFile)) {
                 try (DataInputStream dataInputStream = new DataInputStream((fileInputStream))) {
-                    for (int i = 0; dataInputStream.available() > 0; i++) {
-                        Book book = new Book(dataInputStream.readUTF(), Double.parseDouble(dataInputStream.readUTF()));
+                    while (dataInputStream.available() > 0) {
+                        String title = dataInputStream.readUTF();
+                        double price = dataInputStream.readDouble();
+                        Book book = new Book(title, price);
+
                         books.add(book);
                         titles.add(book.title());
                     }
@@ -61,6 +64,8 @@ public class Controller {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
+            availableBooks.setItems(titles);
         });
 
         exit.setOnAction(event -> System.exit(0));
@@ -87,6 +92,10 @@ public class Controller {
                     "Tax:", tax,
                     "Total:", subtotal + tax));
             alert.showAndWait();
+        });
+
+        addToCart.setOnAction(event -> {
+            availableBooks.getSelectionModel().getSelectedItems();
         });
     }
 }
