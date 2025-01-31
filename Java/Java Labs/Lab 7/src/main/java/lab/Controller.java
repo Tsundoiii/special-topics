@@ -68,6 +68,18 @@ public class Controller {
             availableBooks.setItems(titles);
         });
 
+        light.setOnAction(event -> {
+
+        });
+
+        dark.setOnAction(event -> {
+            availableBooks.getStyleClass().add("list-view-dark");
+            shoppingCart.getStyleClass().add("list-view-dark");
+
+            addToCart.getStyleClass().add("button-dark");
+            removeFromCart.getStyleClass().add("button-dark");
+        });
+
         exit.setOnAction(event -> System.exit(0));
 
         clearCart.setOnAction(event -> {

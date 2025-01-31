@@ -1,2 +1,17 @@
+.root-dark {
+    -fx-background-color: dimgrey;
+    -fx-text-fill: white;
+}
+
 .list-view-dark {
+    -fx-control-inner-background: grey;
+}
+
+.list-view-dark .list-cell {
+    -fx-text-fill: white;
+}
+
+.button-dark {
+    -fx-background-color: silver;
+    -fx-text-fill: white;
 }
