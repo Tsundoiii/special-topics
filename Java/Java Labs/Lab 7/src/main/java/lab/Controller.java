@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,6 +22,9 @@ public class Controller {
     private final ArrayList<Book> cartBooks = new ArrayList<>();
     private final ObservableList<String> titles = FXCollections.observableArrayList();
     private final ObservableList<String> cartTitles = FXCollections.observableArrayList();
+
+    @FXML
+    private GridPane gridPane;
     @FXML
     private MenuItem loadBooks;
     @FXML
