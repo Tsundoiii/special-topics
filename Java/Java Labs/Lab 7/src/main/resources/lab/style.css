@@ -15,3 +15,21 @@
     -fx-background-color: silver;
     -fx-text-fill: white;
 }
+
+.root-idk {
+    -fx-background-color: blue;
+    -fx-text-fill: green;
+}
+
+.list-view-idk {
+    -fx-control-inner-background: pink;
+}
+
+.list-view-idk .list-cell {
+    -fx-text-fill: white;
+}
+
+.button-idk {
+    -fx-background-color: red;
+    -fx-text-fill: yellow;
+}

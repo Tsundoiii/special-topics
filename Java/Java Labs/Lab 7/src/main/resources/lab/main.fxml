@@ -40,6 +40,7 @@
                                 <items>
                                   <MenuItem fx:id="light" mnemonicParsing="false" text="Light" />
                                     <MenuItem fx:id="dark" mnemonicParsing="false" text="Dark" />
+                                    <MenuItem fx:id="idk" mnemonicParsing="false" text="Idk" />
                                 </items>
                               </Menu>
                               <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
