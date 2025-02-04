@@ -89,6 +89,7 @@ public class Controller {
 
             addToCart.getStyleClass().add("button-dark");
             removeFromCart.getStyleClass().add("button-dark");
+            gridPane.getStyleClass().add("root-dark");
         });
 
         exit.setOnAction(event -> System.exit(0));
