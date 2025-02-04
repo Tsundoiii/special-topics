@@ -77,6 +77,10 @@ public class Controller {
                 availableBooks.getStyleClass().remove(1);
                 shoppingCart.getStyleClass().remove(1);
 
+                addToCart.getStyleClass().remove(1);
+                removeFromCart.getStyleClass().remove(1);
+                gridPane.getStyleClass().remove(1);
+            }
         });
 
         dark.setOnAction(event -> {
