@@ -17,6 +17,10 @@ public class Deck {
     }
 
     public void reset() {
+        cards.clear();
 
+        for (String face : Card.FACES) {
+            cards.add(new Card(face));
+        }
     }
 }
