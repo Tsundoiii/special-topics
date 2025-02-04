@@ -68,6 +68,18 @@ public class Controller {
             availableBooks.setItems(titles);
         });
 
+        light.setOnAction(event -> {
+
+        });
+
+        dark.setOnAction(event -> {
+            availableBooks.getStyleClass().add("list-view-dark");
+            shoppingCart.getStyleClass().add("list-view-dark");
+
+            addToCart.getStyleClass().add("button-dark");
+            removeFromCart.getStyleClass().add("button-dark");
+        });
+
         exit.setOnAction(event -> System.exit(0));
 
         clearCart.setOnAction(event -> {
@@ -77,8 +89,13 @@ public class Controller {
 
         checkOut.setOnAction(event -> {
             double subtotal = 0;
-            for (Book book : cartBooks) {
-                subtotal += book.price();
+
+            for (String title : cartTitles) {
+                for (Book book : books) {
+                    if (title.equals(book.title())) {
+                        subtotal += book.price();
+                    }
+                }
             }
 
             double tax = subtotal * 0.07;
@@ -96,6 +113,20 @@ public class Controller {
 
         addToCart.setOnAction(event -> {
             availableBooks.getSelectionModel().getSelectedItems();
+        });
+
+        addToCart.setOnAction(event -> {
+            ObservableList<String> selected = availableBooks.getSelectionModel().getSelectedItems();
+            cartTitles.addAll(selected);
+            shoppingCart.setItems(cartTitles);
+        });
+
+        removeFromCart.setOnAction(event -> {
+            ObservableList<Integer> selected = shoppingCart.getSelectionModel().getSelectedIndices();
+            for (int i : selected) {
+                cartTitles.remove(i);
+            }
+            shoppingCart.setItems(cartTitles);
         });
     }
 }
