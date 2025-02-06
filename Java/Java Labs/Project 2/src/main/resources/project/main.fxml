@@ -28,9 +28,9 @@
          <children>
             <HBox fx:id="buttons" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="play" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Play" textAlignment="CENTER" />
-                  <Button fx:id="hit" mnemonicParsing="false" text="Hit" />
-                  <Button fx:id="stand" mnemonicParsing="false" text="Stand" />
+                  <Button fx:id="play" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" text="Play" textAlignment="CENTER" />
+                  <Button fx:id="hit" mnemonicParsing="false" onAction="#hit" text="Hit" />
+                  <Button fx:id="stand" mnemonicParsing="false" onAction="#stand" text="Stand" />
                </children>
             </HBox>
          </children>
