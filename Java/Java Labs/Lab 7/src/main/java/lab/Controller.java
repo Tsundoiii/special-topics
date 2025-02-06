@@ -3,10 +3,7 @@ package lab;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -32,6 +29,8 @@ public class Controller {
     @FXML
     private MenuItem dark;
     @FXML
+    private MenuItem idk;
+    @FXML
     private MenuItem exit;
     @FXML
     private MenuItem clearCart;
@@ -47,6 +46,7 @@ public class Controller {
     private Button removeFromCart;
 
     public void initialize() {
+        availableBooks.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         loadBooks.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setInitialDirectory(new File("."));
@@ -73,6 +73,14 @@ public class Controller {
         });
 
         light.setOnAction(event -> {
+            for (int i = availableBooks.getStyleClass().size() - 1; i > 0; i--) {
+                availableBooks.getStyleClass().remove(i);
+                shoppingCart.getStyleClass().remove(i);
+
+                addToCart.getStyleClass().remove(i);
+                removeFromCart.getStyleClass().remove(i);
+                gridPane.getStyleClass().remove(i);
+            }
 
         });
 
@@ -82,6 +90,16 @@ public class Controller {
 
             addToCart.getStyleClass().add("button-dark");
             removeFromCart.getStyleClass().add("button-dark");
+            gridPane.getStyleClass().add("root-dark");
+        });
+
+        idk.setOnAction(event -> {
+            availableBooks.getStyleClass().add("list-view-idk");
+            shoppingCart.getStyleClass().add("list-view-idk");
+
+            addToCart.getStyleClass().add("button-idk");
+            removeFromCart.getStyleClass().add("button-idk");
+            gridPane.getStyleClass().add("root-idk");
         });
 
         exit.setOnAction(event -> System.exit(0));
