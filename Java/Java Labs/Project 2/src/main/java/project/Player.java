@@ -1,16 +1,19 @@
 package project;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Player {
     public static Deck deck;
-    private ArrayList<Card> hand;
+    private final ArrayList<Card> hand;
     private int wins;
 
     public Player() {
         hand = new ArrayList<>();
         wins = 0;
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
     }
 
     public int valueOfHand() {
