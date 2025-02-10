@@ -5,11 +5,12 @@ import java.util.Random;
 
 public class Deck {
     private final ArrayList<Card> cards;
-    private Random random;
+    private final Random random;
 
     public Deck() {
         cards = new ArrayList<>();
         reset();
+        random = new Random();
     }
 
     public Card dealCard() {

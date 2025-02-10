@@ -44,10 +44,13 @@ public class Controller {
     public void initialize() {
         player = new Player();
         dealer = new Player();
+
+        hit.setVisible(false);
+        stand.setVisible(false);
     }
 
     public void updateHand(Player p, HBox handBox, Label handValue) {
-        handBox.getChildren().addAll(p.getHand());
+        handBox.getChildren().add(p.getHand().getLast());
         handValue.setText("Value: " + p.valueOfHand());
     }
 
@@ -62,6 +65,7 @@ public class Controller {
         while (dealer.stand(player.valueOfHand())) {
             dealer.hit();
             updateHand(dealer, dealerImages, dealerHandValue);
+            System.out.println("stand");
         }
     }
 
@@ -71,8 +75,9 @@ public class Controller {
         player.clearHand();
         dealer.clearHand();
 
-        hit.setVisible(false);
-        stand.setVisible(false);
+        play.setVisible(false);
+        hit.setVisible(true);
+        stand.setVisible(true);
     }
 
 }
