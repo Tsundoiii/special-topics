@@ -1,6 +1,5 @@
 package project;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +35,9 @@ public class Controller {
     private Label playerWins;
 
     @FXML
+    private Label endtext;
+
+    @FXML
     private Button stand;
 
     private Player player;
@@ -55,29 +57,64 @@ public class Controller {
     }
 
     @FXML
-    void hit(ActionEvent event) {
+    void hit() {
         player.hit();
         updateHand(player, playerImages, playerHandValue);
-    }
 
-    @FXML
-    void stand(ActionEvent event) {
-        while (!dealer.stand(player.valueOfHand())) {
-            dealer.hit();
-            updateHand(dealer, dealerImages, dealerHandValue);
+        if (player.valueOfHand() > 21) {
+            endGame();
         }
     }
 
     @FXML
-    void startGame(ActionEvent event) {
+    void stand() {
+        while (!dealer.stand(player.valueOfHand()) && dealer.valueOfHand() <= 21) {
+            dealer.hit();
+            updateHand(dealer, dealerImages, dealerHandValue);
+        }
+
+        endGame();
+    }
+
+    @FXML
+    void startGame() {
         Player.deck.reset();
         player.clearHand();
         dealer.clearHand();
+
+        dealerImages.getChildren().clear();
+        playerImages.getChildren().clear();
+
+        playerHandValue.setText("Value: " + player.valueOfHand());
+        dealerHandValue.setText("Value: " + dealer.valueOfHand());
 
         play.setVisible(false);
         hit.setVisible(true);
         stand.setVisible(true);
     }
 
+    void endGame() {
+        if (player.valueOfHand() > 21) {
+            playerHandValue.setText(("Value: " + player.valueOfHand() + " Bust!"));
+            endtext.setText("Dealer wins!");
+            dealerWins.setText("Dealer Wins: " + dealer.win());
+        } else if (dealer.valueOfHand() > 21) {
+            dealerHandValue.setText(("Value: " + dealer.valueOfHand() + " Bust!"));
+            endtext.setText("Player wins!");
+            playerWins.setText("Player Wins: " + player.win());
+        } else if (player.valueOfHand() > dealer.valueOfHand()) {
+            endtext.setText("Player wins!");
+            playerWins.setText("Player Wins: " + player.win());
+        } else if (dealer.valueOfHand() > player.valueOfHand()) {
+            endtext.setText("Dealer wins!");
+            dealerWins.setText("Dealer Wins: " + dealer.win());
+        } else {
+            endtext.setText("Push! No one wins.");
+        }
+
+        play.setVisible(true);
+        hit.setVisible(false);
+        stand.setVisible(false);
+    }
 }
 
