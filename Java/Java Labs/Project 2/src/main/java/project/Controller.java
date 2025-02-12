@@ -62,10 +62,9 @@ public class Controller {
 
     @FXML
     void stand(ActionEvent event) {
-        while (dealer.stand(player.valueOfHand())) {
+        while (!dealer.stand(player.valueOfHand())) {
             dealer.hit();
             updateHand(dealer, dealerImages, dealerHandValue);
-            System.out.println("stand");
         }
     }
 

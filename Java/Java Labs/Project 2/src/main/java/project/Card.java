@@ -10,7 +10,9 @@ public class Card extends ImageView {
 
     public Card(String face) {
         this.face = face;
-        setImage(new Image(getClass().getResourceAsStream(face + ".png")));
+        setImage(new Image(String.format("C:\\Users\\gavinchen\\special-topics\\Java\\Java Labs\\Project 2\\cards\\%s.png",face)));
+        setPreserveRatio(true);
+        setFitWidth(150);
     }
 
     public String getFace() {
