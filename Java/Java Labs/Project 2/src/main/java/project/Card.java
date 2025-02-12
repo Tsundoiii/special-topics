@@ -1,5 +1,6 @@
 package project;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Card extends ImageView {
@@ -9,6 +10,7 @@ public class Card extends ImageView {
 
     public Card(String face) {
         this.face = face;
+        setImage(new Image(getClass().getResourceAsStream(face + ".png")));
     }
 
     public String getFace() {

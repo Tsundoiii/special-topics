@@ -3,7 +3,7 @@ package project;
 import java.util.ArrayList;
 
 public class Player {
-    public static Deck deck;
+    public static Deck deck = new Deck();
     private final ArrayList<Card> hand;
     private int wins;
 
