@@ -24,9 +24,9 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+      <ImageView fitHeight="90.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
          <image>
-            <Image url="@blackjack%20logo.png" />
+            <Image url="@../../../../bj_logo.png" />
          </image></ImageView>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
