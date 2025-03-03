@@ -17,7 +17,11 @@ public class Player {
     }
 
     public int valueOfHand() {
-        return hand.stream().mapToInt(Card::valueOf).sum();
+        int value = hand.stream().mapToInt(Card::valueOf).sum();
+        if (value > 21) {
+            value = hand.stream().mapToInt(card -> card.getFace().equals("A") ? 1 : card.valueOf()).sum();
+        }
+        return value;
     }
 
     public void clearHand() {

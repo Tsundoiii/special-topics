@@ -10,7 +10,7 @@ public class Card extends ImageView {
 
     public Card(String face) {
         this.face = face;
-        setImage(new Image(String.format("C:\\Users\\gavinchen\\special-topics\\Java\\Java Labs\\Project 2\\cards\\%s.png",face)));
+        setImage(new Image(String.format("C:\\Users\\gavinchen\\special-topics\\Java\\Java Labs\\Project 2\\cards\\%s.png", face)));
         setPreserveRatio(true);
         setFitWidth(150);
     }
@@ -21,7 +21,7 @@ public class Card extends ImageView {
 
     public int valueOf() {
         return switch (face) {
-            case "A" -> 1;
+            case "A" -> 11;
             case "J", "Q", "K" -> 10;
             default -> Integer.parseInt(face);
         };
