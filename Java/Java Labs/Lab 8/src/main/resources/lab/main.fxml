@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="main" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lab.Controller">
    <children>
       <MenuBar>
         <menus>
@@ -24,7 +23,7 @@
       </MenuBar>
       <VBox alignment="CENTER" prefHeight="377.0" prefWidth="600.0">
          <children>
-            <Label text="You Win!">
+            <Label fx:id="youWin" text="You Win!">
                <font>
                   <Font size="40.0" />
                </font>
@@ -32,7 +31,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" text="Play">
+            <Button fx:id="play" mnemonicParsing="false" onAction="#startGame" text="Play">
                <font>
                   <Font size="20.0" />
                </font>
@@ -40,7 +39,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="507.0" text="Click on every moving circle to send it to the center. Capture them all to win!" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+            <Label fx:id="instructions" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="507.0" text="Click on every moving circle to send it to the center. Capture them all to win!" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font size="20.0" />
                </font>
