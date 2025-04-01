@@ -24,8 +24,4 @@ public class ReversiveRecursive {
         } catch (IOException ignored) {
         }
     }
-
-    public static void main(String[] args) throws IOException {
-        wordCount(new RandomAccessFile("nevergonna.bin", "r"), new ArrayList<Word>());
-    }
 }
