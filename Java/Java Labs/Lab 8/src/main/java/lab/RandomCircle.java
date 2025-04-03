@@ -18,17 +18,14 @@ public class RandomCircle extends Circle {
                 ThreadLocalRandom.current().nextInt(100),
                 new Color[]{Color.GREEN, Color.RED, Color.BLUE}[ThreadLocalRandom.current().nextInt(new Color[]{Color.GREEN, Color.RED, Color.BLUE}.length)]);
 
-        double centerX = pane.getWidth() / 2;
-        double centerY = pane.getHeight() / 2;
-
         TranslateTransition translateToRandomPoint = new TranslateTransition(new Duration(3000), this);
-        translateToRandomPoint.setToX(ThreadLocalRandom.current().nextInt(0, (int) pane.getWidth()));
-        translateToRandomPoint.setToY(ThreadLocalRandom.current().nextInt(0, (int) pane.getHeight()));
+        translateToRandomPoint.setToX(ThreadLocalRandom.current().nextInt((int) pane.getWidth()));
+        translateToRandomPoint.setToY(ThreadLocalRandom.current().nextInt((int) pane.getHeight()));
 
-        translateToCenter.setToX(centerX);
-        translateToCenter.setToY(centerY);
+        translateToCenter.setToX(pane.getWidth() / 2);
+        translateToCenter.setToY(pane.getHeight() / 2);
 
-        setOnKeyPressed(keyEvent -> {
+        setOnMousePressed(mouseEvent -> {
             captured = true;
             translateToCenter.play();
         });
