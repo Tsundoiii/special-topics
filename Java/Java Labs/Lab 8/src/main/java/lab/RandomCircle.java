@@ -2,7 +2,6 @@ package lab;
 
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -13,22 +12,22 @@ public class RandomCircle extends Circle {
     private final TranslateTransition translateToCenter = new TranslateTransition(new Duration(3000), this);
     private boolean captured = false;
 
-    public RandomCircle(Pane pane) {
-        super(ThreadLocalRandom.current().nextInt((int) pane.getWidth()),
-                ThreadLocalRandom.current().nextInt((int) pane.getHeight()),
+    public RandomCircle(double width, double height) {
+        super(ThreadLocalRandom.current().nextInt((int) width),
+                ThreadLocalRandom.current().nextInt((int) height),
                 ThreadLocalRandom.current().nextInt(100),
                 new Color[]{Color.GREEN, Color.RED, Color.BLUE}[ThreadLocalRandom.current().nextInt(new Color[]{Color.GREEN, Color.RED, Color.BLUE}.length)]);
 
         TranslateTransition translateToRandomPoint = new TranslateTransition(new Duration(3000), this);
-        translateToRandomPoint.setToX(ThreadLocalRandom.current().nextInt((int) (pane.getWidth() - this.getRadius())));
-        translateToRandomPoint.setToY(ThreadLocalRandom.current().nextInt((int) (pane.getHeight() - this.getRadius())));
+        translateToRandomPoint.setToX(ThreadLocalRandom.current().nextInt((int) (width - this.getRadius())));
+        translateToRandomPoint.setToY(ThreadLocalRandom.current().nextInt((int) (height - this.getRadius())));
 
         setOnMousePressed(mouseEvent -> {
             captured = true;
             translateToRandomPoint.stop();
 
-            translateToCenter.setToX(pane.getWidth() / 2);
-            translateToCenter.setToY(pane.getHeight() / 2);
+            translateToCenter.setToX(width / 2);
+            translateToCenter.setToY(height / 2);
 
             translateToCenter.play();
         });
