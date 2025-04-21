@@ -15,7 +15,7 @@ public class RandomCircle extends Circle {
     public RandomCircle(double width, double height) {
         super(ThreadLocalRandom.current().nextInt((int) width),
                 ThreadLocalRandom.current().nextInt((int) height),
-                ThreadLocalRandom.current().nextInt(100),
+                ThreadLocalRandom.current().nextInt(10, 100),
                 new Color[]{Color.GREEN, Color.RED, Color.BLUE}[ThreadLocalRandom.current().nextInt(new Color[]{Color.GREEN, Color.RED, Color.BLUE}.length)]);
 
         TranslateTransition translateToRandomPoint = new TranslateTransition(new Duration(3000), this);
@@ -26,8 +26,11 @@ public class RandomCircle extends Circle {
             captured = true;
             translateToRandomPoint.stop();
 
-            translateToCenter.setToX(width / 2);
-            translateToCenter.setToY(height / 2);
+            translateToCenter.setToX(width / 2 - this.getCenterX());
+            translateToCenter.setToY(height / 2 - this.getCenterY());
+
+            System.out.println("x: " + translateToCenter.getToX());
+            System.out.println("y: " + translateToCenter.getToY());
 
             translateToCenter.play();
         });
