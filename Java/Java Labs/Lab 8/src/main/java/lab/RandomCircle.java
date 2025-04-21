@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomCircle extends Circle {
     private final TranslateTransition translateToCenter = new TranslateTransition(new Duration(3000), this);
-    private boolean captured = false;
+    public boolean captured = false;
 
     public RandomCircle(double width, double height) {
         super(ThreadLocalRandom.current().nextInt((int) width),
