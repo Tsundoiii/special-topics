@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -48,6 +49,7 @@ public class Controller {
             youWin.setVisible(true);
             play.setText("Play again");
             play.setVisible(true);
+            instructions.setVisible(true);
         });
 
         timeline.getKeyFrames().add(keyFrame);
