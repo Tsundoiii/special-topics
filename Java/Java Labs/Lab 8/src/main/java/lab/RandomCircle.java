@@ -19,8 +19,8 @@ public class RandomCircle extends Circle {
                 new Color[]{Color.GREEN, Color.RED, Color.BLUE}[ThreadLocalRandom.current().nextInt(new Color[]{Color.GREEN, Color.RED, Color.BLUE}.length)]);
 
         TranslateTransition translateToRandomPoint = new TranslateTransition(new Duration(3000), this);
-        translateToRandomPoint.setToX(ThreadLocalRandom.current().nextInt(radius, (int) (width - this.getCenterX())));
-        translateToRandomPoint.setToY(ThreadLocalRandom.current().nextInt(radius, (int) (height - this.getCenterY())));
+        translateToRandomPoint.setToX(ThreadLocalRandom.current().nextInt(radius, (int) (width - getCenterX())));
+        translateToRandomPoint.setToY(ThreadLocalRandom.current().nextInt(radius, (int) (height - getCenterY())));
 
         setOnMousePressed(mouseEvent -> {
             captured = true;
