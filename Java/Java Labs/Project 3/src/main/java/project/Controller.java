@@ -389,10 +389,14 @@ public class Controller {
 			 * is ready to be finalized to where we are clicking now
 			 */
 			//Finalize the currentTransition depending on the shape
-			//TODO
+			double x = e.getX();
+			double y = e.getY();
+			currentTransition = new TranslateTransition(Duration.millis(3000), selectedNode);
+			currentTransition.setToX(x);
+			currentTransition.setToX(y);
 			
 			//Add the animation to shapeTransitions
-			//TODO
+			shapeTransitions.getChildren().add(currentTransition);
 			System.out.println("Added animation"); //For debugging
 			
 			//Finish flickering since the animation is set
