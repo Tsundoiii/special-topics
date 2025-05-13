@@ -237,14 +237,15 @@ public class Controller {
 			 * Flicker the selectedNode
 			 * Flicker duration is 1 second and repeats indefinitely until turned off
 			 */
-			//TODO
+			animationFader = new FadeTransition(Duration.seconds(1), selectedNode);
+			animationFader.setCycleCount(Animation.INDEFINITE);
 			
 			
 			/*
 			 * Initialize the currentTransition to the selectedNode
 			 * Animation duration is 1 second
 			 */
-			//TODO
+			currentTransition = new TranslateTransition(Duration.seconds(1), selectedNode);
 			
 			//No need to set the fromX or FromY as it will be the current node's X and Y by default
 		}
@@ -256,24 +257,32 @@ public class Controller {
 	 */
 	@FXML
 	void globalKeyEvents(KeyEvent e) {
-//		//ESCAPE: Deselect shape or draw mode by returning to selectMode
-//		if () {
-//			//TODO
-//		}
-//		//Change text on a text
-//		else if (){
-//			//DELETE or BACK_SPACE: Remove last character of Text
-//			//Any other key: Add character to Text
-//			//TODO
-//		}
-//		//DELETE or BACK_SPACE: Delete shape
-//		else if () {
-//			//TODO
-//		}
-//		//SPACE: Reset and play animations
-//		else if () {
-//			//TODO
-//		}
+		//ESCAPE: Deselect shape or draw mode by returning to selectMode
+		if (e.getCode() == KeyCode.ESCAPE) {
+			selectMode();
+		}
+		//Change text on a text
+		else if (mode.equals("text")){
+			Text text = new Text();
+			//DELETE or BACK_SPACE: Remove last character of Text
+			//Any other key: Add character to Text
+			//TODO
+			if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
+				text.setText(text.getText().substring(0, text.getText().length() - 2));
+			} else {
+				text.setText(text.getText() + e.getCharacter());
+			}
+		}
+		//DELETE or BACK_SPACE: Delete shape
+		else if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
+			if (selectedNode != null) {
+				pane.getChildren().remove(selectedNode);
+			}
+		}
+		//SPACE: Reset and play animations
+		else if (e.getCode() == KeyCode.SPACE) {
+			shapeTransitions.play();
+		}
 
 	}
 
@@ -391,7 +400,6 @@ public class Controller {
 			//Finalize the currentTransition depending on the shape
 			double x = e.getX();
 			double y = e.getY();
-			currentTransition = new TranslateTransition(Duration.millis(3000), selectedNode);
 			currentTransition.setToX(x);
 			currentTransition.setToX(y);
 			
@@ -400,7 +408,7 @@ public class Controller {
 			System.out.println("Added animation"); //For debugging
 			
 			//Finish flickering since the animation is set
-			//TODO
+			animationFader.stop();
 			
 			//Go back to select mode
 			selectMode();
