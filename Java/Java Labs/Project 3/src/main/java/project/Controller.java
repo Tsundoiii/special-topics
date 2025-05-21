@@ -132,7 +132,6 @@ public class Controller {
 		// Put the same colorChange event on all sliders
 		Slider[] sliders = { redSlider, greenSlider, blueSlider };
 		for (Slider slider : sliders) {
-			// TODO
 			slider.setOnMouseDragged(event -> this.colorChange());
 		}
 
@@ -168,11 +167,10 @@ public class Controller {
 	 * to match.
 	 */
 	void colorChange() {
-		// TODO
 		selectedColor = Color.color(
-				redSlider.getValue(),
-				greenSlider.getValue(),
-				blueSlider.getValue());
+				redSlider.getValue() / 255,
+				greenSlider.getValue() / 255,
+				blueSlider.getValue() / 255);
 
 		menuLine.setFill(selectedColor);
 		menuCircle.setFill(selectedColor);
@@ -273,8 +271,8 @@ public class Controller {
 			selectMode();
 		}
 		// Change text on a text
-		else if (mode.equals("text")) {
-			Text text = new Text();
+		else if (mode.equals("text") && selectedNode instanceof Text) {
+			Text text = (Text) selectedNode;
 			// DELETE or BACK_SPACE: Remove last character of Text
 			// Any other key: Add character to Text
 			// TODO
@@ -301,24 +299,26 @@ public class Controller {
 	 * MousePress event to create a shape on the drawing space
 	 */
 	void createShape(MouseEvent e) {
-		//Avoid null pointer
+		// Avoid null pointer
 		if (selectedNode == null) {
 			return;
 		}
 
-		//select and animate mode do not allow drawing a shape
+		// select and animate mode do not allow drawing a shape
 		if (!(mode.equals("select") || mode.equals("animate"))) {
-			//Get mouse coordinates
-			//TODO
+			// Get mouse coordinates
+			// TODO
 
 			double x = e.getX();
 			double y = e.getY();
-	
-			//Set up the new Shape
+			double x1;
+			double y1;
+
+			// Set up the new Shape
 			Shape newShape = null;
 
-			//Make the correct kind of shape based on the mode
-			//TODO
+			// Make the correct kind of shape based on the mode
+			// TODO
 
 			if (mode.equals("circle")) {
 				Circle circle = new Circle(x, y, 20);
@@ -339,31 +339,30 @@ public class Controller {
 				text.setFill(selectedColor);
 				newShape = text;
 			}
-			
-			//Add Mouse Press to select the shape
-			newShape.addEventHandler(MouseEvent.MOUSE_PRESSED, e2 -> {
-				//Don't select the shape if we are drawing a new one
-				if (!drawing) {
-					//TODO
 
+			// Add Mouse Press to select the shape
+			newShape.addEventHandler(MouseEvent.MOUSE_PRESSED, e2 -> {
+				// Don't select the shape if we are drawing a new one
+				if (!drawing) {
+					// TODO
 					selectedNode = newShape;
 					x1 = e2.getSceneX();
 					y1 = e2.getSceneY();
 				}
 			});
-			
-			//Add Mouse Drag to move the shape
-			newShape.setOnMouseDragged(e2 -> {
-				//TODO
 
-				if (selectedNode != null && drawing) {
+			// Add Mouse Drag to move the shape
+			newShape.setOnMouseDragged(e2 -> {
+				// TODO
+				if (!drawing) {
 					double x2 = e2.getSceneX() - x1;
 					double y2 = e2.getSceneY() - y1;
 					newShape.setLayoutX(newShape.getLayoutX() + x2);
 					newShape.setLayoutY(newShape.getLayoutY() + y2);
 					x1 = e2.getSceneX();
 					y1 = e2.getSceneY();
-			});		
+				}
+			});
 			drawing = true;
 		}
 
@@ -383,6 +382,8 @@ public class Controller {
 
 		// Mouse coordinates
 		// TODO
+		double x = e.getScreenX();
+		double y = e.getScreenY();
 
 		// Are we still drawing a new shape?
 		if (drawing) {
@@ -392,6 +393,19 @@ public class Controller {
 
 			// Update the shape based on what kind of shape it is
 			// TODO
+			if (lastShape instanceof Line) {
+				((Line) lastShape).setEndX(x);
+				((Line) lastShape).setEndY(y);
+			} else if (lastShape instanceof Ellipse) {
+				((Ellipse) lastShape).setRadiusX(x);
+				((Ellipse) lastShape).setRadiusY(y);
+			} else if (lastShape instanceof Rectangle) {
+				((Rectangle) lastShape).setWidth(e.getX());
+				((Rectangle) lastShape).setHeight(e.getY());
+			} else if (lastShape instanceof Text) {
+				((Text) lastShape).setX(x);
+				((Text) lastShape).setY(y);
+			}
 		}
 	}
 
@@ -424,11 +438,27 @@ public class Controller {
 			Object source = e.getSource();
 			// Get mouse coordinates
 			// TODO
-			double x = e.getScreenX();
-			double y = e.getScreenY();
+			double x = e.getX();
+			double y = e.getY();
 
 			// Move the shape based on what kind of shape it is
 			// TODO
+			if (source instanceof Line) {
+				boolean closerToEnd = Math.hypot(((Line) source).getEndX() - e.getScreenX(),
+						((Line) source).getEndY() - e.getScreenY()) < Math.hypot(
+								((Line) source).getStartX() - e.getScreenX(),
+								((Line) source).getStartY() - e.getScreenY());
+				if (closerToEnd) {
+					((Line) source).setEndX(e.getScreenX());
+					((Line) source).setEndY(e.getScreenY());
+				} else {
+					((Line) source).setStartX(e.getScreenX());
+					((Line) source).setStartY(e.getScreenY());
+				}
+			} else {
+				((Shape) source).setTranslateX(x);
+				((Shape) source).setTranslateY(y);
+			}
 		}
 	}
 
