@@ -1,6 +1,7 @@
 package project;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -22,6 +23,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -140,6 +142,8 @@ public class Controller {
 		greenSlider.adjustValue(198);
 		blueSlider.adjustValue(248);
 
+		this.colorChange();
+
 		// Initialize image cursors for draw cursor
 		/*
 		 * The numbers shift the image a bit to put the tip of the pencil
@@ -248,6 +252,10 @@ public class Controller {
 			 */
 			animationFader = new FadeTransition(Duration.seconds(1), selectedNode);
 			animationFader.setCycleCount(Animation.INDEFINITE);
+			animationFader.setAutoReverse(true);
+			animationFader.setFromValue(1.0);
+			animationFader.setToValue(0.3);
+			animationFader.play();
 
 			/*
 			 * Initialize the currentTransition to the selectedNode
@@ -271,7 +279,7 @@ public class Controller {
 			selectMode();
 		}
 		// Change text on a text
-		else if (mode.equals("text") && selectedNode instanceof Text) {
+		else if (selectedNode instanceof Text) {
 			Text text = (Text) selectedNode;
 			// DELETE or BACK_SPACE: Remove last character of Text
 			// Any other key: Add character to Text
@@ -279,7 +287,7 @@ public class Controller {
 			if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
 				text.setText(text.getText().substring(0, text.getText().length() - 2));
 			} else {
-				text.setText(text.getText() + e.getCharacter());
+				text.setText(text.getText() + e.getText());
 			}
 		}
 		// DELETE or BACK_SPACE: Delete shape
@@ -311,43 +319,47 @@ public class Controller {
 
 			double x = e.getX();
 			double y = e.getY();
-			double x1;
-			double y1;
 
 			// Set up the new Shape
-			Shape newShape = null;
+			Shape newShape;
 
 			// Make the correct kind of shape based on the mode
 			// TODO
 
-			if (mode.equals("circle")) {
-				Circle circle = new Circle(x, y, 20);
-				circle.setFill(selectedColor);
-				circle.setStroke(Color.BLACK);
-				newShape = circle;
-			} else if (mode.equals("rectangle")) {
-				Rectangle rect = new Rectangle(x, y, 40, 30);
-				rect.setFill(selectedColor);
-				rect.setStroke(Color.BLACK);
-				newShape = rect;
-			} else if (mode.equals("line")) {
-				Line line = new Line(x, y, x + 40, y + 40);
-				line.setStroke(selectedColor);
-				newShape = line;
-			} else if (mode.equals("text")) {
-				Text text = new Text(x, y, "Text");
-				text.setFill(selectedColor);
-				newShape = text;
-			}
+            switch (mode) {
+                case "circle" -> {
+                    Ellipse circle = new Ellipse(x, y, 20, 20);
+                    circle.setFill(selectedColor);
+                    circle.setStroke(Color.BLACK);
+                    newShape = circle;
+                }
+                case "rectangle" -> {
+                    Rectangle rect = new Rectangle(x, y, 40, 30);
+                    rect.setFill(selectedColor);
+                    rect.setStroke(Color.BLACK);
+                    newShape = rect;
+                }
+                case "line" -> {
+                    Line line = new Line(x, y, x + 40, y + 40);
+                    line.setStroke(selectedColor);
+                    newShape = line;
+                }
+                case "text" -> {
+                    Text text = new Text(x, y, "Text");
+                    text.setFill(selectedColor);
+                    newShape = text;
+                }
+                default -> newShape = null;
+            }
 
-			// Add Mouse Press to select the shape
+            // Add Mouse Press to select the shape
 			newShape.addEventHandler(MouseEvent.MOUSE_PRESSED, e2 -> {
 				// Don't select the shape if we are drawing a new one
 				if (!drawing) {
 					// TODO
 					selectedNode = newShape;
-					x1 = e2.getSceneX();
-					y1 = e2.getSceneY();
+					dX = e2.getSceneX();
+					dY = e2.getSceneY();
 				}
 			});
 
@@ -355,14 +367,16 @@ public class Controller {
 			newShape.setOnMouseDragged(e2 -> {
 				// TODO
 				if (!drawing) {
-					double x2 = e2.getSceneX() - x1;
-					double y2 = e2.getSceneY() - y1;
+					double x2 = e2.getSceneX() - dX;
+					double y2 = e2.getSceneY() - dY;
 					newShape.setLayoutX(newShape.getLayoutX() + x2);
 					newShape.setLayoutY(newShape.getLayoutY() + y2);
-					x1 = e2.getSceneX();
-					y1 = e2.getSceneY();
+					dX=e2.getSceneX();
+					dY=e2.getSceneY();
 				}
 			});
+
+			pane.getChildren().add(newShape);
 			drawing = true;
 		}
 
@@ -382,8 +396,8 @@ public class Controller {
 
 		// Mouse coordinates
 		// TODO
-		double x = e.getScreenX();
-		double y = e.getScreenY();
+		double x = e.getX();
+		double y = e.getY();
 
 		// Are we still drawing a new shape?
 		if (drawing) {
@@ -403,8 +417,7 @@ public class Controller {
 				((Rectangle) lastShape).setWidth(e.getX());
 				((Rectangle) lastShape).setHeight(e.getY());
 			} else if (lastShape instanceof Text) {
-				((Text) lastShape).setX(x);
-				((Text) lastShape).setY(y);
+				((Text) lastShape).setFont(new Font(x));
 			}
 		}
 	}
@@ -476,12 +489,12 @@ public class Controller {
 			 * is ready to be finalized to where we are clicking now
 			 */
 			// Finalize the currentTransition depending on the shape
-			double x = e.getScreenX();
-			double y = e.getScreenY();
-			currentTransition.setToX(x);
-			currentTransition.setToX(y);
+			double x = e.getX();
+			double y = e.getY();
+			currentTransition.setToX(x - selectedNode.getLayoutBounds().getMinX());
+            currentTransition.setToY(y - selectedNode.getLayoutBounds().getMinY());
 
-			// Add the animation to shapeTransitions
+            // Add the animation to shapeTransitions
 			shapeTransitions.getChildren().add(currentTransition);
 			System.out.println("Added animation"); // For debugging
 
